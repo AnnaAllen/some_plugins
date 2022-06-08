@@ -2,15 +2,7 @@
   <div>
     <p>----test----</p>
     <div class="demo" @contextmenu="showMenu()">
-      <div style="background-color:red;width:50px;height:50px;" >
-        <vue-context-menu
-          :contextMenuData="contextMenuData"
-          :transferIndex="transferIndex"
-          @Handler1="Handler_A($event)"
-        >
-        </vue-context-menu>
-      </div>
-      <ag-grid-vue style="height: 400px;"
+      <ag-grid-vue style="height: 500px;"
         class="ag-theme-alpine"
         :columnDefs="columnDefs"
         :rowData="rowData"
@@ -33,42 +25,89 @@
     data() {
       return {
         columnDefs: [
-          { 
-            field: 'area.value', 
-            headerName: '区域', 
-            rowSpan: function (params) {
-              if(params.data.showC1) {
-                return params.data.showC1.length
-              }
-              return 1
-            },
-            cellClassRules: {
-              'cell-span': "value !== undefined",
-            },
-            resizable: true
+          {
+            headerName: '组1',
+            children: [
+              { 
+                field: 'area.value', 
+                headerName: '区域', 
+                rowSpan: function (params) {
+                  if(params.data.showC1) {
+                    return params.data.showC1.length
+                  }
+                  return 1
+                },
+                cellClassRules: {
+                  'cell-span': "value !== undefined",
+                },
+                resizable: true
+              },
+              { 
+                field: 'shop.value', 
+                headerName: '商品',
+                rowSpan: function (params) {
+                  if(params.data.showC2) {
+                    return params.data.showC2.length
+                  }
+                  return 1
+                },
+                colSpan: (params) => {
+                  if (params.data.shop.length) {
+                    return params.data.shop.length
+                  }
+                  return 1
+                },
+                cellClassRules: {
+                  'cell-span': "value !== undefined",
+                },
+                resizable: true
+              },
+              { field: 'shopDate.value', headerName: '订单日期', resizable: true},
+              { field: 'shopPrice.value', headerName: '订单金额', resizable: true}
+            ]
           },
-          { 
-            field: 'shop.value', 
-            headerName: '商品',
-            rowSpan: function (params) {
-              if(params.data.showC2) {
-                return params.data.showC2.length
-              }
-              return 1
-            },
-            colSpan: (params) => {
-              if (params.data.shop.length) {
-                return params.data.shop.length
-              }
-              return 1
-            },
-            cellClassRules: {
-              'cell-span': "value !== undefined",
-            },
-            resizable: true
+          {
+            headerName: '组2',
+            children: [
+              { 
+                field: 'area.value', 
+                headerName: '区域', 
+                rowSpan: function (params) {
+                  if(params.data.showC1) {
+                    return params.data.showC1.length
+                  }
+                  return 1
+                },
+                cellClassRules: {
+                  'cell-span': "value !== undefined",
+                },
+                resizable: true
+              },
+              { 
+                field: 'shop.value', 
+                headerName: '商品',
+                rowSpan: function (params) {
+                  if(params.data.showC2) {
+                    return params.data.showC2.length
+                  }
+                  return 1
+                },
+                colSpan: (params) => {
+                  if (params.data.shop.length) {
+                    return params.data.shop.length
+                  }
+                  return 1
+                },
+                cellClassRules: {
+                  'cell-span': "value !== undefined",
+                },
+                resizable: true
+              },
+              { field: 'shopDate.value', headerName: '订单日期', resizable: true},
+              { field: 'shopPrice.value', headerName: '订单金额', resizable: true}
+            ]
           },
-          { field: 'shopDate.value', headerName: '订单日期', resizable: true},
-          { field: 'shopPrice.value', headerName: '订单金额', resizable: true}
+          
         ],
         rowData: null,
         gridApi: null,
@@ -119,12 +158,15 @@
           shopPrice: { label: '订单金额', value: '3' }
         },
         {
+          showC1: null,
+          showC2: null,
           area: { label: '区域', value: undefined },
           shop: { label: '商品', value: undefined }, 
           shopDate: { label: '订单日期', value: '2022/5/31' }, 
           shopPrice: { label: '订单金额', value: '3' }
         },
         {
+          showC1: null,
           showC2: {length: 2},
           area: { label: '区域', value: undefined },
           shop: { label: '商品', value: '铅笔' }, 
@@ -132,12 +174,16 @@
           shopPrice: { label: '订单金额', value: '3' }
         },
         {
+          showC1: null,
+          showC2: null,
           area: { label: '区域', value: undefined },
           shop: { label: '商品', value: undefined }, 
           shopDate: { label: '订单日期', value: '2022/5/31' }, 
           shopPrice: { label: '订单金额', value: '3' }
         },
         {
+          showC1: null,
+          showC2: null,
           area: { label: '区域', value: undefined },
           shop: { label: '商品', value: '商品-总计', length: 2 }, 
           shopDate: { label: '订单日期', value: undefined }, 
@@ -152,12 +198,16 @@
           shopPrice: { label: '订单金额', value: '3' }
         },
         {
+          showC1: null,
+          showC2: null,
           area: { label: '区域', value: undefined },
           shop: { label: '商品', value:  undefined}, 
           shopDate: { label: '订单日期', value: '2022/5/31' }, 
           shopPrice: { label: '订单金额', value: '3' }
         },
         {
+          showC1: null,
+          showC2: null,
           area: { label: '区域', value: undefined },
           shop: { label: '商品', value: '商品-总计', length: 2 }, 
           shopDate: { label: '订单日期', value: '2022/5/31' }, 
@@ -206,7 +256,7 @@
   @import "~ag-grid-community/dist/styles/ag-theme-alpine.css";
   .demo {
     .ag-theme-alpine{
-      margin: auto;
+      // margin: auto;
     }
     .cell-span {
       background: white;
