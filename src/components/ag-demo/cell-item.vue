@@ -1,7 +1,7 @@
 <template>
-  <div @contextmenu.prevent="onContextmenu">
+  <div @contextmenu.prevent="onContextmenu" :style="style">
     <div ref="cell" id="cell" >
-      {{value}}
+      {{value}} <i class="el-icon-edit"></i>
     </div>
   </div>
 </template>
@@ -11,6 +11,7 @@ export default {
   data() {
     return {
       value: null,
+      style: null,
       contextMenuData: {
         menuName: "demo",
         axis: {
@@ -40,13 +41,26 @@ export default {
   },
   mounted() {
     this.value = this.valueSquared();
+    this.style = this.calcHeight()
   },
   methods: {
     valueSquared() {
+      // console.log(this.params);
       return this.params.value;
     },
+    calcHeight() {
+      if(this.params.data.showC1) {
+        let h = this.params.data.showC1.length * 41
+        console.log(h);
+        return {
+          height: h + 'px',
+          'line-height': h + 'px'
+        }
+
+      }
+    },
     invokeParentMethod() {
-      // console.log(this.params.value);
+      console.log(this.params);
       this.params.context.componentParent.methodFromParent(this.params.value)
     },
     onContextmenu(event) {
@@ -80,5 +94,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+#id {
+  width: 100%;
+  height: 100%;
+}
 </style>

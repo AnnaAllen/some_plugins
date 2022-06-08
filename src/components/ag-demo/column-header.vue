@@ -1,7 +1,7 @@
 <template>
   <div @click="onMenuClicked($event)" @contextmenu.prevent="onContextmenu" class="column-hearder">
     <div>
-      {{params.displayName}}
+      {{params.displayName}} <i class="el-icon-edit"></i>
     </div>
   </div>
 </template>
@@ -21,12 +21,6 @@ export default {
       this.$contextmenu({
         items: [
           { 
-            label: "隐藏",
-            onClick: () => {
-              this.hideColumn()
-            }
-          },
-          { 
             label: "抑制",
             onClick: () => {
             }
@@ -39,14 +33,7 @@ export default {
           },
           { label: "排除"},
           { label: "自定义计算"},
-          { 
-            label: "上卷",
-            onClick: () => {
-              this.invokeParentMethod()
-            }
-          },
-          { label: "下钻"},
-          { label: "移除此维度"}
+          { label: "移除度量"}
         ],
         event,
         //x: event.clientX,
@@ -65,7 +52,10 @@ export default {
       this.params.context.componentParent.hideColumn(this.params.column.colId)
     },
     retain() {
-      this.params.context.componentParent.retain(this.params.column.colId)
+      // console.log(this.params.column.parent.groupId);
+      const groupId = this.params.column.parent?.groupId
+      const colId = this.params.column.colId
+      this.params.context.componentParent.retain({colId: colId, groupId: groupId})
     }
   }
 }
@@ -73,10 +63,10 @@ export default {
 
 <style lang="scss" scoped>
 .column-hearder{
-  background-color: pink;
+  // background-color: pink;
   width: 100%;
   height: 100%;
-  font-size: 30px;
-  color: white;
+  font-size: 20px;
+  // color: white;
 }
 </style>

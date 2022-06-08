@@ -33,9 +33,15 @@ export default {
   },
   beforeMount() {
     this.columnDefs = [
-      { field: "make", cellRenderer: "cellItem", hide: false, colId: 'make'},
-      { field: "model", hide: false, colId: 'model' },
-      { field: "price", hide: false, colId: 'price' },
+      {
+        headerName: '组1',
+        groupId: 'first',
+        children: [
+          { field: "make", cellRenderer: "cellItem", hide: false, colId: 'make'},
+          { field: "model", hide: false, colId: 'model' },
+          { field: "price", hide: false, colId: 'price' },
+        ]
+      }
     ];
     this.rowData = [
       { make: "Toyota", model: "Celica", price: 35000 },
@@ -54,26 +60,29 @@ export default {
       this.gridColumnApi = params.columnApi;
     },
     // 隐藏
-    hideColumn(colId) {
+    hideColumn({colId}) {
       const index = this.columnDefs.findIndex(item => item.colId = colId)
       this.columnDefs[index].hide =  true
       this.gridColumnApi.applyColumnState({
         state: [this.columnDefs[index]],
       });
       console.log(this.columnDefs);
-      // this.gridColumnApi.applyColumnState({
-      //   defaultState: { hide: false },
-      // });
     },
     // 仅保留
-    retain(colId) {
+    retain({colId, groupId}) {
       const hideArr = this.columnDefs
         .filter(item => item.colId !== colId)
         .map(item => {
           return {...item, hide: true}
         })
+      const parentArr = this.columnDefs.filter(item => item.groupId == groupId)
+      const hideChildrenArr = parentArr[0].children
+        .filter(item => item.colId !== colId)
+        .map(item => {
+          return {...item, hide: true}
+        })
       this.gridColumnApi.applyColumnState({
-        state: hideArr,
+        state: hideChildrenArr,
       });
     },
     methodFromParent(cell) {
