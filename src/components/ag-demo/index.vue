@@ -7,6 +7,7 @@
         :columnDefs="columnDefs"
         :rowData="rowData"
         :suppressRowTransform="true"
+        :columnHoverHighlight= "columnHoverHighlight"
         :defaultColDef="defaultColDef"
         getContextMeunItems={this.getContextMenuItem}
         @grid-ready="onGridReady"
@@ -112,6 +113,7 @@
         rowData: null,
         gridApi: null,
         columnApi: null,
+        columnHoverHighlight: true,
         defaultColDef: {
           width: 170,
           resizable: true,
