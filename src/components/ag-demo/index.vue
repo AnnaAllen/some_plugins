@@ -24,6 +24,7 @@
   import { AgGridVue } from "ag-grid-vue";
   import cellItem from './cell-item.vue'
   import columnHeader from './column-header.vue'
+  import customHeaderComponent from './custom-header-component.vue'
   
   const rowSpanC1 = function (params) {
     if(params.data.showC1) {
@@ -88,7 +89,7 @@
             children: [
               { 
                 field: 'area.value', 
-                colId: 'area',
+                colId: 'area2',
                 headerName: '区域', 
                 rowSpan: rowSpanC1,
                 cellClassRules: {
@@ -96,13 +97,10 @@
                 },
                 resizable: true,
                 cellRenderer: "cellItem",
-                height: function(params) {
-                  return params.data.showC1.length
-                }
               },
               { 
                 field: 'shop.value', 
-                colId: 'shop',
+                colId: 'shop2',
                 headerName: '商品',
                 rowSpan: rowSpanC2,
                 colSpan: (params) => {
@@ -116,8 +114,43 @@
                 },
                 resizable: true,
               },
-              { field: 'shopDate.value', colId: 'shopDate', headerName: '订单日期', resizable: true},
-              { field: 'shopPrice.value', colId: 'shopPrice', headerName: '订单金额', resizable: true}
+              { field: 'shopDate.value', colId: 'shopDate2', headerName: '订单日期', resizable: true},
+              { field: 'shopPrice.value', colId: 'shopPrice2', headerName: '订单金额', resizable: true}
+            ]
+          },
+          {
+            headerName: '组3',
+            groupId: 'third',
+            children: [
+              { 
+                field: 'area.value', 
+                colId: 'area3',
+                headerName: '区域', 
+                rowSpan: rowSpanC1,
+                cellClassRules: {
+                  'cell-span': "value !== undefined",
+                },
+                resizable: true,
+                cellRenderer: "cellItem",
+              },
+              { 
+                field: 'shop.value', 
+                colId: 'shop3',
+                headerName: '商品',
+                rowSpan: rowSpanC2,
+                colSpan: (params) => {
+                  if (params.data.shop.length) {
+                    return params.data.shop.length
+                  }
+                  return 1
+                },
+                cellClassRules: {
+                  'cell-span': "value !== undefined",
+                },
+                resizable: true,
+              },
+              { field: 'shopDate.value', colId: 'shopDate3', headerName: '订单日期', resizable: true},
+              { field: 'shopPrice.value', colId: 'shopPrice3', headerName: '订单金额', resizable: true}
             ]
           },
         ],
@@ -160,7 +193,8 @@
     },
     components: {
       AgGridVue, cellItem,
-      agColumnHeader: columnHeader
+      agColumnHeader: columnHeader,
+      agColumnGroupHeader: customHeaderComponent
     },
     mounted() {
       this.rowData = [
@@ -248,16 +282,31 @@
       },
       // 仅保留
       retain({colId, groupId}) {
-        const parentArr = this.columnDefs.filter(item => item.groupId == groupId)
-        const hideChildrenArr = parentArr[0].children
-          .filter(item => item.colId !== colId)
-          .map(item => {
-            return {...item, hide: true}
+        if(colId) {
+          const parentArr = this.columnDefs.filter(item => item.groupId == groupId)
+          const hideChildrenArr = parentArr[0].children
+            .filter(item => item.colId !== colId)
+            .map(item => {
+              return {...item, hide: true}
+            })
+          
+          this.gridColumnApi.applyColumnState({
+            state: hideChildrenArr,
+          });
+          return
+        }
+        let hideChildren = []
+        this.columnDefs
+          .filter(item => item.groupId != groupId)
+          .forEach(item => {
+            hideChildren.push(...item.children)
           })
-        // console.log(this.gridColumnApi);
-        
+        hideChildren = hideChildren.map(item => { 
+          return {...item, hide: true}
+        })
+
         this.gridColumnApi.applyColumnState({
-          state: hideChildrenArr,
+          state: hideChildren,
         });
       },
       Handler_A (event) {
