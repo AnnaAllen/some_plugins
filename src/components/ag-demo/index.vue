@@ -82,6 +82,44 @@
               { field: 'shopPrice.value', colId: 'shopPrice', headerName: '订单金额', resizable: true}
             ]
           },
+          {
+            headerName: '组2',
+            groupId: 'second',
+            children: [
+              { 
+                field: 'area.value', 
+                colId: 'area',
+                headerName: '区域', 
+                rowSpan: rowSpanC1,
+                cellClassRules: {
+                  'cell-span': "value !== undefined",
+                },
+                resizable: true,
+                cellRenderer: "cellItem",
+                height: function(params) {
+                  return params.data.showC1.length
+                }
+              },
+              { 
+                field: 'shop.value', 
+                colId: 'shop',
+                headerName: '商品',
+                rowSpan: rowSpanC2,
+                colSpan: (params) => {
+                  if (params.data.shop.length) {
+                    return params.data.shop.length
+                  }
+                  return 1
+                },
+                cellClassRules: {
+                  'cell-span': "value !== undefined",
+                },
+                resizable: true,
+              },
+              { field: 'shopDate.value', colId: 'shopDate', headerName: '订单日期', resizable: true},
+              { field: 'shopPrice.value', colId: 'shopPrice', headerName: '订单金额', resizable: true}
+            ]
+          },
         ],
         rowData: null,
         gridApi: null,
