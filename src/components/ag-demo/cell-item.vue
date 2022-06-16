@@ -1,5 +1,5 @@
 <template>
-  <div @contextmenu.prevent="onContextmenu" :style="style">
+  <div @contextmenu.prevent="onContextmenu" :style="style" class="">
     <div ref="cell" id="cell" >
       {{value}} <i class="el-icon-edit"></i>
     </div>
@@ -42,6 +42,7 @@ export default {
   mounted() {
     this.value = this.valueSquared();
     this.style = this.calcHeight()
+    console.log(this.params.value)
   },
   methods: {
     valueSquared() {
@@ -50,7 +51,7 @@ export default {
     },
     calcHeight() {
       if(this.params.data.showC1) {
-        let h = this.params.data.showC1.length * 41
+        let h = this.params.data.showC1.length * 40
         console.log(h);
         return {
           height: h + 'px',
@@ -94,8 +95,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#id {
-  width: 100%;
+#cell {
   height: 100%;
+  background-color: #f8f8f8;
+  border-right: 1px solid #babfc7;
+  border-bottom: 1px solid #babfc7;
 }
 </style>

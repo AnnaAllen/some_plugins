@@ -1,7 +1,11 @@
 <template>
-  <div @click="onMenuClicked($event)" @contextmenu.prevent="onContextmenu" class="column-hearder">
+<!-- column-hearder -->
+  <div 
+  @click="onMenuClicked($event)" 
+  @contextmenu.prevent="onContextmenu" 
+  :class="params.column.colDef.styleStatus === 'special'? 'column-header-special' : 'column-hearder'">
     <div>
-      {{params.displayName}} <i class="el-icon-edit"></i>
+      {{params.displayName}} <i v-if="params.column.colDef.styleStatus !== 'special'" class="el-icon-edit"></i>
     </div>
   </div>
 </template>
@@ -12,6 +16,9 @@ export default {
     return {
 
     }
+  },
+  mounted() {
+    // console.log(this.params.column.colDef.styleStatus);
   },
   methods: {
     onMenuClicked() {
@@ -68,5 +75,14 @@ export default {
   height: 100%;
   font-size: 20px;
   // color: white;
+}
+.column-header-special{
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  font-size: 14px;
+  font-weight: normal;
+  background-color: #f8f8f8;
+  border-right: 1px solid #babfc7;
 }
 </style>

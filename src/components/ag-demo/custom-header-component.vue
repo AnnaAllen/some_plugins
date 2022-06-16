@@ -1,5 +1,5 @@
 <template>
-  <div class="group-hearder" @contextmenu.prevent="onContextmenu">
+  <div :class="params.columnGroup.groupId === 'special'?'group-hearder-special':'group-hearder'" @contextmenu.prevent="onContextmenu">
     {{displayName}}
   </div>
 </template>
@@ -13,6 +13,7 @@ export default {
   },
   mounted() {
     this.displayName = this.getDisplayName()
+    // console.log(this.params.columnGroup.groupId);
   },
   methods: {
     getDisplayName() {
@@ -61,5 +62,14 @@ export default {
   height: 100%;
   align-content: center;
   font-size: 20px;
+}
+.group-hearder-special{
+  font-size: 15px;
+  font-weight: normal;
+  text-align: center;
+  width: 100%;
+  background-color: #f8f8f8;
+  height: 100%;
+  border-right: 1px solid #babfc7;
 }
 </style>
