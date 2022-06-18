@@ -67,11 +67,20 @@ export default {
     onContextmenu(event) {
       this.$contextmenu({
         items: [
-          { label: "隐藏"},
           { label: "抑制"},
           { label: "仅保留"},
+          {
+            label: '展示格式',
+            children: [
+              {label: '无'},
+              {label: '整数'},
+              {label: '保留一位小数'},
+              {label: '保留两位小数'},
+              {label: '百分比'},
+              {label: '百分比一位小数'},
+            ]
+          },
           { label: "排除"},
-          { label: "自定义计算"},
           { 
             label: "上卷",
             onClick: () => {

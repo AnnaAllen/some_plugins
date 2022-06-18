@@ -5,7 +5,7 @@
     <!-- <ag-grid-column></ag-grid-column> -->
     <!-- <test-right-click></test-right-click> -->
     <!-- <cell-render></cell-render> -->
-    <normal-table></normal-table>
+    <!-- <normal-table></normal-table> -->
     <br>
     <change-table></change-table>
     <!-- <p>ag-demo-行列转换</p>
