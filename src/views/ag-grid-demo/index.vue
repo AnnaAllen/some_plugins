@@ -1,13 +1,13 @@
 <template>
   <div>
-    <!-- <p>ag-demo-基本</p>
-    <ag-demo></ag-demo> -->
+    <p>ag-demo-基本</p>
+    <ag-demo></ag-demo>
     <!-- <ag-grid-column></ag-grid-column> -->
     <!-- <test-right-click></test-right-click> -->
     <!-- <cell-render></cell-render> -->
     <!-- <normal-table></normal-table> -->
     <br>
-    <change-table></change-table>
+    <!-- <change-table></change-table> -->
     <!-- <p>ag-demo-行列转换</p>
     <ag-grid-change></ag-grid-change> -->
   </div>
