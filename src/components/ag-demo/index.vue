@@ -1,7 +1,7 @@
 <template>
   <div>
     <p>----test----</p>
-    <div class="demo" @contextmenu="showMenu()" style="width: 800px">
+    <div class="demo">
       <ag-grid-vue 
         v-if="rowData"
         style="height: 500px; width: 100%"
@@ -54,8 +54,8 @@
                 field: 'area.value', 
                 colId: 'area',
                 headerName: '区域', 
-                rowSpan: rowSpanC1,
-                colSpan: null,
+                rowSpan: rowSpanC1, // 跨行
+                colSpan: null, // 扩列
                 styleStatus: 'normal',
                 cellClassRules: {
                   'cell-span': "value !== undefined",
@@ -68,7 +68,8 @@
                 colId: 'shop',
                 headerName: '商品',
                 rowSpan: rowSpanC2,
-                colSpan: (params) => {
+                // 跨列
+                colSpan: (params) => { 
                   if (params.data.shop.length) {
                     return params.data.shop.length
                   }
@@ -83,76 +84,76 @@
               { field: 'shopPrice.value', colId: 'shopPrice', headerName: '订单金额', resizable: true}
             ]
           },
-          // {
-          //   headerName: '组2',
-          //   groupId: 'second',
-          //   children: [
-          //     { 
-          //       field: 'area.value', 
-          //       colId: 'area2',
-          //       headerName: '区域', 
-          //       rowSpan: rowSpanC1,
-          //       cellClassRules: {
-          //         'cell-span': "value !== undefined",
-          //       },
-          //       resizable: true,
-          //       cellRenderer: "cellItem",
-          //     },
-          //     { 
-          //       field: 'shop.value', 
-          //       colId: 'shop2',
-          //       headerName: '商品',
-          //       rowSpan: rowSpanC2,
-          //       colSpan: (params) => {
-          //         if (params.data.shop.length) {
-          //           return params.data.shop.length
-          //         }
-          //         return 1
-          //       },
-          //       cellClassRules: {
-          //         'cell-span': "value !== undefined",
-          //       },
-          //       resizable: true,
-          //     },
-          //     { field: 'shopDate.value', colId: 'shopDate2', headerName: '订单日期', resizable: true},
-          //     { field: 'shopPrice.value', colId: 'shopPrice2', headerName: '订单金额', resizable: true}
-          //   ]
-          // },
-          // {
-          //   headerName: '组3',
-          //   groupId: 'third',
-          //   children: [
-          //     { 
-          //       field: 'area.value', 
-          //       colId: 'area3',
-          //       headerName: '区域', 
-          //       rowSpan: rowSpanC1,
-          //       cellClassRules: {
-          //         'cell-span': "value !== undefined",
-          //       },
-          //       resizable: true,
-          //       cellRenderer: "cellItem",
-          //     },
-          //     { 
-          //       field: 'shop.value', 
-          //       colId: 'shop3',
-          //       headerName: '商品',
-          //       rowSpan: rowSpanC2,
-          //       colSpan: (params) => {
-          //         if (params.data.shop.length) {
-          //           return params.data.shop.length
-          //         }
-          //         return 1
-          //       },
-          //       cellClassRules: {
-          //         'cell-span': "value !== undefined",
-          //       },
-          //       resizable: true,
-          //     },
-          //     { field: 'shopDate.value', colId: 'shopDate3', headerName: '订单日期', resizable: true},
-          //     { field: 'shopPrice.value', colId: 'shopPrice3', headerName: '订单金额', resizable: true}
-          //   ]
-          // },
+          {
+            headerName: '组2',
+            groupId: 'second',
+            children: [
+              { 
+                field: 'area.value', 
+                colId: 'area2',
+                headerName: '区域', 
+                rowSpan: rowSpanC1,
+                cellClassRules: {
+                  'cell-span': "value !== undefined",
+                },
+                resizable: true,
+                cellRenderer: "cellItem",
+              },
+              { 
+                field: 'shop.value', 
+                colId: 'shop2',
+                headerName: '商品',
+                rowSpan: rowSpanC2,
+                colSpan: (params) => {
+                  if (params.data.shop.length) {
+                    return params.data.shop.length
+                  }
+                  return 1
+                },
+                cellClassRules: {
+                  'cell-span': "value !== undefined",
+                },
+                resizable: true,
+              },
+              { field: 'shopDate.value', colId: 'shopDate2', headerName: '订单日期', resizable: true},
+              { field: 'shopPrice.value', colId: 'shopPrice2', headerName: '订单金额', resizable: true}
+            ]
+          },
+          {
+            headerName: '组3',
+            groupId: 'third',
+            children: [
+              { 
+                field: 'area.value', 
+                colId: 'area3',
+                headerName: '区域', 
+                rowSpan: rowSpanC1,
+                cellClassRules: {
+                  'cell-span': "value !== undefined",
+                },
+                resizable: true,
+                cellRenderer: "cellItem",
+              },
+              { 
+                field: 'shop.value', 
+                colId: 'shop3',
+                headerName: '商品',
+                rowSpan: rowSpanC2,
+                colSpan: (params) => {
+                  if (params.data.shop.length) {
+                    return params.data.shop.length
+                  }
+                  return 1
+                },
+                cellClassRules: {
+                  'cell-span': "value !== undefined",
+                },
+                resizable: true,
+              },
+              { field: 'shopDate.value', colId: 'shopDate3', headerName: '订单日期', resizable: true},
+              { field: 'shopPrice.value', colId: 'shopPrice3', headerName: '订单金额', resizable: true}
+            ]
+          },
         ],
         rowData: null,
         gridApi: null,
@@ -163,32 +164,6 @@
           width: 170,
           resizable: true,
         },
-        // 右击
-        transferIndex: null, // Show the menu that was clicked
-        contextMenuData: {
-          menuName: "demo",
-          axis: {
-            x: null,
-            y: null
-          },
-          menulists: [
-            {
-              btnName: "选项1",
-              icoName: "fa fa-home fa-fw",
-              children: [
-                {
-                  icoName: "fa fa-adn",
-                  btnName: "选项1-1",
-                  fnHandler: "Handler1"
-                }
-              ]
-            },
-            {
-              btnName: "选项4",
-              disabled: true
-            }
-          ]
-        }
       };
     },
     components: {
@@ -271,16 +246,6 @@
         this.gridColumnApi = params.columnApi;
         this.sizeToFit()
       },
-      showMenu(index) {
-        this.transferIndex = index; // tranfer index to child component
-        event.preventDefault();
-        var x = event.clientX;
-        var y = event.clientY;
-        this.contextMenuData.axis = {
-          x,
-          y
-        };
-      },
       sizeToFit() {
         this.gridApi.sizeColumnsToFit();
       },
@@ -320,12 +285,6 @@
           state: hideChildren,
         });
       },
-      Handler_A (event) {
-        console.log(event);
-      },
-      mouseclick() {
-        console.log(111);
-      }
     },
   }
   
