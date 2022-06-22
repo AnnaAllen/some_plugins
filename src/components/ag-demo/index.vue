@@ -4,7 +4,7 @@
     <div class="demo">
       <ag-grid-vue 
         v-if="rowData"
-        style="height: 500px; width: 100%"
+        style="height: 500px"
         class="ag-theme-alpine"
         :columnDefs="columnDefs"
         :rowData="rowData"
@@ -80,81 +80,82 @@
                 },
                 resizable: true,
               },
-              { field: 'shopDate.value', colId: 'shopDate', headerName: '订单日期', resizable: true},
+              { field: 'shopDate.value', colId: 'shopDate', headerName: '订单日期', resizable: true, rowDrag: true, columnGroupShow: 'open'},
               { field: 'shopPrice.value', colId: 'shopPrice', headerName: '订单金额', resizable: true}
             ]
           },
-          {
-            headerName: '组2',
-            groupId: 'second',
-            children: [
-              { 
-                field: 'area.value', 
-                colId: 'area2',
-                headerName: '区域', 
-                rowSpan: rowSpanC1,
-                cellClassRules: {
-                  'cell-span': "value !== undefined",
-                },
-                resizable: true,
-                cellRenderer: "cellItem",
-              },
-              { 
-                field: 'shop.value', 
-                colId: 'shop2',
-                headerName: '商品',
-                rowSpan: rowSpanC2,
-                colSpan: (params) => {
-                  if (params.data.shop.length) {
-                    return params.data.shop.length
-                  }
-                  return 1
-                },
-                cellClassRules: {
-                  'cell-span': "value !== undefined",
-                },
-                resizable: true,
-              },
-              { field: 'shopDate.value', colId: 'shopDate2', headerName: '订单日期', resizable: true},
-              { field: 'shopPrice.value', colId: 'shopPrice2', headerName: '订单金额', resizable: true}
-            ]
-          },
-          {
-            headerName: '组3',
-            groupId: 'third',
-            children: [
-              { 
-                field: 'area.value', 
-                colId: 'area3',
-                headerName: '区域', 
-                rowSpan: rowSpanC1,
-                cellClassRules: {
-                  'cell-span': "value !== undefined",
-                },
-                resizable: true,
-                cellRenderer: "cellItem",
-              },
-              { 
-                field: 'shop.value', 
-                colId: 'shop3',
-                headerName: '商品',
-                rowSpan: rowSpanC2,
-                colSpan: (params) => {
-                  if (params.data.shop.length) {
-                    return params.data.shop.length
-                  }
-                  return 1
-                },
-                cellClassRules: {
-                  'cell-span': "value !== undefined",
-                },
-                resizable: true,
-              },
-              { field: 'shopDate.value', colId: 'shopDate3', headerName: '订单日期', resizable: true},
-              { field: 'shopPrice.value', colId: 'shopPrice3', headerName: '订单金额', resizable: true}
-            ]
-          },
+          // {
+          //   headerName: '组2',
+          //   groupId: 'second',
+          //   children: [
+          //     { 
+          //       field: 'area.value', 
+          //       colId: 'area2',
+          //       headerName: '区域', 
+          //       rowSpan: rowSpanC1,
+          //       cellClassRules: {
+          //         'cell-span': "value !== undefined",
+          //       },
+          //       resizable: true,
+          //       cellRenderer: "cellItem",
+          //     },
+          //     { 
+          //       field: 'shop.value', 
+          //       colId: 'shop2',
+          //       headerName: '商品',
+          //       rowSpan: rowSpanC2,
+          //       colSpan: (params) => {
+          //         if (params.data.shop.length) {
+          //           return params.data.shop.length
+          //         }
+          //         return 1
+          //       },
+          //       cellClassRules: {
+          //         'cell-span': "value !== undefined",
+          //       },
+          //       resizable: true,
+          //     },
+          //     { field: 'shopDate.value', colId: 'shopDate2', headerName: '订单日期', resizable: true},
+          //     { field: 'shopPrice.value', colId: 'shopPrice2', headerName: '订单金额', resizable: true}
+          //   ]
+          // },
+          // {
+          //   headerName: '组3',
+          //   groupId: 'third',
+          //   children: [
+          //     { 
+          //       field: 'area.value', 
+          //       colId: 'area3',
+          //       headerName: '区域', 
+          //       rowSpan: rowSpanC1,
+          //       cellClassRules: {
+          //         'cell-span': "value !== undefined",
+          //       },
+          //       resizable: true,
+          //       cellRenderer: "cellItem",
+          //     },
+          //     { 
+          //       field: 'shop.value', 
+          //       colId: 'shop3',
+          //       headerName: '商品',
+          //       rowSpan: rowSpanC2,
+          //       colSpan: (params) => {
+          //         if (params.data.shop.length) {
+          //           return params.data.shop.length
+          //         }
+          //         return 1
+          //       },
+          //       cellClassRules: {
+          //         'cell-span': "value !== undefined",
+          //       },
+          //       resizable: true,
+          //     },
+          //     { field: 'shopDate.value', colId: 'shopDate3', headerName: '订单日期', resizable: true},
+          //     { field: 'shopPrice.value', colId: 'shopPrice3', headerName: '订单金额', resizable: true}
+          //   ]
+          // },
         ],
+        rowDragManaged: true,
         rowData: null,
         gridApi: null,
         columnApi: null,
@@ -168,7 +169,7 @@
     },
     components: {
       AgGridVue, cellItem,
-      agColumnHeader: columnHeader,
+      // agColumnHeader: columnHeader,
       agColumnGroupHeader: customHeaderComponent
     },
     mounted() {

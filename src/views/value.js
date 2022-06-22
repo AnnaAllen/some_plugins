@@ -1,5 +1,5 @@
-{
-  "traceId": "67d3582d-bb13-402a-b6bc-368714474d8b",
+const data = {
+  "traceId": "bac74aee-b9f0-4196-bd5b-817fac5cbaff",
   "code": null,
   "message": null,
   "success": true,
@@ -8,7 +8,7 @@
   "data": {
     "pollKey": null,
     "dsType": "mysql",
-    "runtime": 55,
+    "runtime": 51,
     "sqlAdvise": false,
     "normalResult": true,
     "performanceInfo": {
@@ -16,25 +16,25 @@
         {
           "sqlStages": {
             "query": 5,
-            "createConnection": 21
+            "createConnection": 20
           },
-          "sql": "SELECT ADR_T_1_.`product_type` AS T_AJW_2_, SUM(ADR_T_1_.`price`) AS T_AOC_3_, SUM(ADR_T_1_.`shipping_cost`) AS T_ARU_4_ FROM `quickbi_online_demo`.`company_sales_record` AS ADR_T_1_  GROUP BY ADR_T_1_.`product_type`  LIMIT 0, 10001",
+          "sql": "SELECT ADR_T_1_.`product_type` AS T_AL9_2_, SUM(ADR_T_1_.`price`) AS T_ACF_3_ FROM `quickbi_online_demo`.`company_sales_record` AS ADR_T_1_  GROUP BY ADR_T_1_.`product_type`  LIMIT 0, 10001",
           "extraInfo": {
             "isFromCache": "false"
           },
-          "cacheMoment": 1655545293423,
+          "cacheMoment": 1655705826550,
           "logView": null,
-          "queryStartTime": 1655545293397,
-          "queryEndTime": 1655545293423
+          "queryStartTime": 1655705826525,
+          "queryEndTime": 1655705826550
         }
       ],
       "stages": {
-        "beforeQuery": 31,
+        "beforeQuery": 27,
         "validAuthPre": 5,
-        "maxCreateConnection": 21,
-        "afterQuery": 9,
+        "maxCreateConnection": 20,
+        "afterQuery": 8,
         "maxQuery": 5,
-        "totalInServer": 66
+        "totalInServer": 60
       },
       "extraInfo": {
         "isFromDLA": false,
@@ -43,12 +43,12 @@
         "isFromCache": false,
         "isFromTableIndex": false
       },
-      "traceId": "67d3582d-bb13-402a-b6bc-368714474d8b",
+      "traceId": "bac74aee-b9f0-4196-bd5b-817fac5cbaff",
       "cubeId": "c91c01cc-1c24-470f-81fd-2fd8ed2ccb3a",
       "reportId": null,
       "componentId": null,
-      "startTimeOfServer": 1655545293366,
-      "endTimeOfServer": 1655545293432,
+      "startTimeOfServer": 1655705826498,
+      "endTimeOfServer": 1655705826558,
       "supportSqlAdvise": true,
       "converted": true
     },
@@ -78,7 +78,7 @@
               "hasChildren": null,
               "ranking": null,
               "props": {
-                "guid": "产品类型~60tvidwj",
+                "guid": "产品类型~1x2ibw9l",
                 "label": null,
                 "description": null,
                 "format": null,
@@ -105,7 +105,7 @@
               "hasChildren": null,
               "ranking": null,
               "props": {
-                "guid": "产品类型~60tvidwj",
+                "guid": "产品类型~1x2ibw9l",
                 "label": null,
                 "description": null,
                 "format": null,
@@ -132,7 +132,7 @@
               "hasChildren": null,
               "ranking": null,
               "props": {
-                "guid": "产品类型~60tvidwj",
+                "guid": "产品类型~1x2ibw9l",
                 "label": null,
                 "description": null,
                 "format": null,
@@ -161,34 +161,7 @@
               "hasChildren": null,
               "ranking": null,
               "props": {
-                "guid": "单价~y1ttvkco",
-                "label": null,
-                "description": null,
-                "format": null,
-                "hidden": null,
-                "hasPermission": null,
-                "dataMask": null
-              }
-            }
-          ],
-          "groupName": null,
-          "groups": null
-        },
-        {
-          "total": false,
-          "subtotal": false,
-          "summaryType": null,
-          "cells": [
-            {
-              "value": null,
-              "raw": null,
-              "dataType": "number",
-              "id": null,
-              "parentId": null,
-              "hasChildren": null,
-              "ranking": null,
-              "props": {
-                "guid": "运输成本~rmdpzlur",
+                "guid": "单价~gayznpfc",
                 "label": null,
                 "description": null,
                 "format": null,
@@ -206,33 +179,21 @@
         [
           {
             "v": "216410.58000000077"
-          },
-          {
-            "v": "26380.90999999995"
           }
         ],
         [
           {
             "v": "45991.95000000015"
-          },
-          {
-            "v": "9409.219999999972"
           }
         ],
         [
           {
             "v": "49741.98000000012"
-          },
-          {
-            "v": "12018.839999999998"
           }
         ],
         [
           {
             "v": "120676.65000000052"
-          },
-          {
-            "v": "4952.84999999998"
           }
         ]
       ],
@@ -256,12 +217,12 @@
         "cubeId": "c91c01cc-1c24-470f-81fd-2fd8ed2ccb3a",
         "logView": null,
         "pollKey": null,
-        "sql": "SELECT ADR_T_1_.`product_type` AS T_AJW_2_, SUM(ADR_T_1_.`price`) AS T_AOC_3_, SUM(ADR_T_1_.`shipping_cost`) AS T_ARU_4_ FROM `quickbi_online_demo`.`company_sales_record` AS ADR_T_1_  GROUP BY ADR_T_1_.`product_type`  LIMIT 0, 10001",
-        "connectDBDuration": 21,
+        "sql": "SELECT ADR_T_1_.`product_type` AS T_AL9_2_, SUM(ADR_T_1_.`price`) AS T_ACF_3_ FROM `quickbi_online_demo`.`company_sales_record` AS ADR_T_1_  GROUP BY ADR_T_1_.`product_type`  LIMIT 0, 10001",
+        "connectDBDuration": 20,
         "queryDuration": 5,
-        "createTime": 1655545293423,
-        "queryStartTime": 1655545293397,
-        "queryEndTime": 1655545293423,
+        "createTime": 1655705826550,
+        "queryStartTime": 1655705826525,
+        "queryEndTime": 1655705826550,
         "extraInfo": {
           "isFromCache": "false"
         }
@@ -270,3 +231,4 @@
   },
   "querySql": null
 }
+export default data

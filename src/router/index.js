@@ -7,7 +7,7 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    redirect: '/ag-demo'
+    redirect: '/view/x6FlowChart'
   },
   {
     path: '/about',
@@ -24,6 +24,11 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import('../views/ag-grid-demo/index.vue')
+  },
+  {
+    path: '/view/x6FlowChart',
+    name: 'x6FlowChart',
+    component: () => import('../views/x6FlowChart/index.vue')
   }
 ]
 

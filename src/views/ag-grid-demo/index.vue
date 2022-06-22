@@ -10,6 +10,7 @@
     <!-- <change-table></change-table> -->
     <!-- <p>ag-demo-行列转换</p>
     <ag-grid-change></ag-grid-change> -->
+    <!-- <test-quick-bi-data></test-quick-bi-data> -->
   </div>
 </template>
 
@@ -21,7 +22,6 @@ import testRightClick from '../../components/ag-demo/test-right-click.vue'
 import cellRender from '../../components/ag-demo/cell-render.vue'
 import agGridChange from '../../components/ag-demo-change/index.vue'
 import normalTable from '../../components/ag-demo/normal.vue'
-import changeTable from '../../components/ag-demo-change/change.vue'
 
 export default {
   components: {
@@ -31,7 +31,6 @@ export default {
     cellRender,
     agGridChange,
     normalTable,
-    changeTable
   },
   data() {
     return {
