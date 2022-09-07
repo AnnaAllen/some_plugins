@@ -1,12 +1,13 @@
 <template>
-  <div ref="ag-grid">
-    <p>转换后</p>
-     <ag-grid-vue
+  <div>
+    <ag-grid-vue
       style="height: 400px;"
       class="ag-theme-alpine"
       :columnDefs="columnDefs"
       :rowData="rowData"
       :defaultColDef='defaultColDef'
+      @grid-ready="onGridReady"
+      @first-data-rendered="onFirstDataRendered"
     >
     </ag-grid-vue>
   </div>
@@ -14,26 +15,26 @@
 
 <script>
 import { AgGridVue } from "ag-grid-vue";
-import cellItem from './cell-item.vue'
-// import columnHeader from './column-header.vue'
 import customHeaderComponent from './custom-header-component.vue'
 import columnHeader from './column-header.vue'
 
 export default {
-  data() {
-    return {
-      columnDefs: null,
-      rowData: null,
-      defaultColDef: {
-        resizable: true,
-        lockPinned: true
-      },
-    }
-  },
   components: {
     AgGridVue,
     agColumnGroupHeader: customHeaderComponent,
     agColumnHeader: columnHeader,
+  },
+  data() {
+    return {
+      columnDefs: null,
+      rowData: null,
+      gridApi: null,
+      columnApi: null,
+      defaultColDef: {
+        resizable: true,
+        // lockPinned: true
+      },
+    }
   },
   beforeMount() {
     this.columnDefs = [
@@ -71,7 +72,6 @@ export default {
                   { field: "label", 
                   headerName: '产品小类数据数据环境设计好久好久 - 三级', 
                   groupId: 'unitProduct', 
-                  cellRenderer: 'cellItem', 
                   suppressMovable: true,
                     level: {
                       level0: {label: '根节点', value: '根节点'},
@@ -262,61 +262,26 @@ export default {
       },
     ];
   },
-  mounted() {
-    this.getChangeRow()
-    console.log(this.$refs, 'this.$refs------------');
-  },
   methods: {
-    // 行列装换后使用装换前的 columnDefs 来构造转换后的 rowData
-    getChangeRow() {
-      // 拿到详情节点和标识列
-      let detailColumn = this.columnDefs[0].children[0].children.length > this.columnDefs[0].children[1].children.length ? this.columnDefs[0].children[0].children : this.columnDefs[0].children[1]
-      let tagColumn = this.columnDefs[0].children[0].children.length < this.columnDefs[0].children[1].children.length ? this.columnDefs[0].children[0].children : this.columnDefs[0].children[1].children
-      // console.log('详情列：', detailColumn);
-      // console.log('标识列', tagColumn);
-      let level = 0
-      let arr = []
-      let newColumn = this.recursion(this.columnDefs, arr, level)
-      console.log('新表头', newColumn);
+    // 自动将列扩到能看见表头全部字体
+    // 网格在创建时并未附加到 DOM（因此api.sizeColumnsToFit()应该会失败）。网格在 100 毫秒后再次检查，并再次尝试调整大小。
+    onFirstDataRendered(params) {
+      const allColumnIds = [];
+      params.columnApi.columnModel.columnsForQuickFilter.forEach((column) => {
+        allColumnIds.push(column.colId);
+      });
+      params.columnApi.autoSizeColumns(allColumnIds, false);
+
+      // console.log(params, 'this.gridColumnApi.autoSizeColumns---------');
     },
-    // 递归遍历，查找不到children时停止,得到新表头
-    recursion(tagColumn,arr,level) {
-      // console.log('标识列', tagColumn);
-      if(tagColumn[0].children) {
-        let obj = {
-          level: level,
-          headerName: tagColumn[0].headerName,
-          groupId: tagColumn[0].groupId
-        }
-        arr.push(obj)
-        level++
-        this.recursion(tagColumn[0].children,arr,level)
-        // console.log(arr);
-      } else {
-        let obj = {
-          level: level,
-          headerName: tagColumn[0].headerName,
-          groupId: tagColumn[0].groupId
-        }
-        arr.push(obj)
-      }
-      
-      return arr
+    onGridReady(params) {
+      this.gridApi = params.api;
+      this.gridColumnApi = params.columnApi;
     },
-    newRowData() {
-      let row = [
-        {'level-0': null, 'level-1': null, 'level-2': '办公产品-二级', 'level-3': '信封-三级'},
-        {'level-0': null, 'level-1': null, 'level-2': '办公产品-二级', 'level-3': '纸张-三级'},
-        {'level-0': null, 'level-1': null, 'level-2': '办公产品-总计', 'level-3': null},
-        {'level-0': null, 'level-1': null, 'level-2': '家具产品-二级', 'level-3': '书架-三级'},
-        {'level-0': null, 'level-1': null, 'level-2': '家具产品-二级', 'level-3': '凳子-三级'},
-        {'level-0': null, 'level-1': null, 'level-2': '家具产品-总计', 'level-3': null},
-      ]
-    }
   }
 }
 </script>
 
-<style>
+<style scoped lang="scss">
 
 </style>

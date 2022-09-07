@@ -2,10 +2,11 @@
 <!-- column-hearder -->
   <div 
   @click="onMenuClicked($event)" 
-  @contextmenu.prevent="onContextmenu" 
-  :class="params.column.colDef.styleStatus === 'special'? 'column-header-special' : 'column-hearder'">
-    <div>
-      {{params.displayName}} <i v-if="params.column.colDef.styleStatus !== 'special'" class="el-icon-edit"></i>
+  @contextmenu.prevent="onContextmenu"
+  class="header-item"
+  :class="params.column.colDef.spanning? 'column-header-special' : 'column-hearder'">
+    <div ref='specialCell'>
+      {{params.displayName}}
     </div>
   </div>
 </template>
@@ -14,10 +15,20 @@
 export default {
   data() {
     return {
-
     }
   },
   mounted() {
+    this.$nextTick(() => {
+      if(this.params.column.colDef.spanning) {
+        // this.$refs.specialCell.parentNode.parentNode.style.width = `${this.params.column.colDef.spanning * 200}px`
+      }
+      // console.log(this.params.column.colDef.spanning);
+      if(!this.params.displayName) {
+        // this.$refs.specialCell.parentNode.parentNode.style.display = 'none'
+        // console.log(this.$refs.specialCell.parentNode.parentNode.style.display,'this.$refs.specialCell');
+        // console.log(this.$refs.specialCell.parentNode.parentNode.display,'this.$refs');
+      }
+    })
     // console.log(this.params.column.colDef.styleStatus);
   },
   methods: {
@@ -26,6 +37,7 @@ export default {
     },
     onContextmenu(event) {
       this.$contextmenu({
+        minWidth: 160,
         items: [
           { 
             label: "抑制",
@@ -38,7 +50,13 @@ export default {
               this.retain()
             }
           },
-          { label: "排除"},
+          { 
+            label: "排除",
+            icon:'',
+            children: [
+              {label: "小数", icon: 'el-icon-check',}
+            ]
+          },
           { label: "自定义计算"},
           { label: "移除度量"}
         ],
@@ -73,16 +91,24 @@ export default {
   // background-color: pink;
   width: 100%;
   height: 100%;
-  font-size: 20px;
+  font-size: 16px;
+  border-right: 1px solid #babfc7;
+  font-weight: normal;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   // color: white;
 }
 .column-header-special{
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   height: 100%;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: normal;
   background-color: #f8f8f8;
-  border-right: 1px solid #babfc7;
+  // border-right: 1px solid #babfc7;
 }
 </style>

@@ -80,45 +80,45 @@
                 },
                 resizable: true,
               },
-              { field: 'shopDate.value', colId: 'shopDate', headerName: '订单日期', resizable: true, rowDrag: true, columnGroupShow: 'open'},
-              { field: 'shopPrice.value', colId: 'shopPrice', headerName: '订单金额', resizable: true}
+              { field: 'shopDate.value', colId: 'shopDate', headerName: '订单日期', resizable: true, rowDrag: true, columnGroupShow: 'open', lockPinned: true,},
+              { field: 'shopPrice.value', colId: 'shopPrice', headerName: '订单金额', resizable: true, lockPinned: true,}
             ]
           },
-          // {
-          //   headerName: '组2',
-          //   groupId: 'second',
-          //   children: [
-          //     { 
-          //       field: 'area.value', 
-          //       colId: 'area2',
-          //       headerName: '区域', 
-          //       rowSpan: rowSpanC1,
-          //       cellClassRules: {
-          //         'cell-span': "value !== undefined",
-          //       },
-          //       resizable: true,
-          //       cellRenderer: "cellItem",
-          //     },
-          //     { 
-          //       field: 'shop.value', 
-          //       colId: 'shop2',
-          //       headerName: '商品',
-          //       rowSpan: rowSpanC2,
-          //       colSpan: (params) => {
-          //         if (params.data.shop.length) {
-          //           return params.data.shop.length
-          //         }
-          //         return 1
-          //       },
-          //       cellClassRules: {
-          //         'cell-span': "value !== undefined",
-          //       },
-          //       resizable: true,
-          //     },
-          //     { field: 'shopDate.value', colId: 'shopDate2', headerName: '订单日期', resizable: true},
-          //     { field: 'shopPrice.value', colId: 'shopPrice2', headerName: '订单金额', resizable: true}
-          //   ]
-          // },
+          {
+            headerName: '组2',
+            groupId: 'second',
+            children: [
+              { 
+                field: 'area.value', 
+                colId: 'area2',
+                headerName: '区域', 
+                rowSpan: rowSpanC1,
+                cellClassRules: {
+                  'cell-span': "value !== undefined",
+                },
+                resizable: true,
+                cellRenderer: "cellItem",
+              },
+              { 
+                field: 'shop.value', 
+                colId: 'shop2',
+                headerName: '商品',
+                rowSpan: rowSpanC2,
+                colSpan: (params) => {
+                  if (params.data.shop.length) {
+                    return params.data.shop.length
+                  }
+                  return 1
+                },
+                cellClassRules: {
+                  'cell-span': "value !== undefined",
+                },
+                resizable: true,
+              },
+              { field: 'shopDate.value', colId: 'shopDate2', headerName: '订单日期', resizable: true, lockPinned: true,},
+              { field: 'shopPrice.value', colId: 'shopPrice2', headerName: '订单金额', resizable: true, lockPinned: true,}
+            ]
+          },
           // {
           //   headerName: '组3',
           //   groupId: 'third',
@@ -162,14 +162,15 @@
         columnHoverHighlight: true,
         context: null,
         defaultColDef: {
-          width: 170,
+          width: 100,
           resizable: true,
+          lockPinned: true
         },
       };
     },
     components: {
       AgGridVue, cellItem,
-      // agColumnHeader: columnHeader,
+      agColumnHeader: columnHeader,
       agColumnGroupHeader: customHeaderComponent
     },
     mounted() {
@@ -294,22 +295,24 @@
 <style lang="scss">
   @import "~ag-grid-community/dist/styles/ag-grid.css";
   @import "~ag-grid-community/dist/styles/ag-theme-alpine.css";
-  .demo {
-    .ag-theme-alpine .ag-header-cell, .ag-theme-alpine .ag-header-group-cell{
-      // margin: auto;
-      padding: 0 !important;
-    }
-    .ag-theme-alpine .ag-cell, .ag-theme-alpine .ag-full-width-row .ag-cell-wrapper.ag-row-group {
-      padding: 0 !important;
-    }
-    .cell-span {
-      background: white;
-      // display: flex;
-      // align-items: center;
-      // justify-content: center;
-      border-left: 1px solid lightgrey !important;
-      border-right: 1px solid lightgrey !important;
-      border-bottom: 1px solid lightgrey !important;
-    }
+  .ag-theme-alpine .ag-header-cell, .ag-theme-alpine .ag-header-group-cell{
+    // margin: auto;
+    padding: 0 !important;
+  }
+  .ag-theme-alpine .ag-cell, .ag-theme-alpine .ag-full-width-row .ag-cell-wrapper.ag-row-group {
+    padding: 0 !important;
+  }
+
+  .ag-header-row{
+    overflow: unset !important;
+  }
+  .cell-span {
+    background: white;
+    // display: flex;
+    // align-items: center;
+    // justify-content: center;
+    border-left: 1px solid lightgrey !important;
+    border-right: 1px solid lightgrey !important;
+    border-bottom: 1px solid lightgrey !important;
   }
 </style>

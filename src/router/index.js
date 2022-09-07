@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import HomeView from '../views/HomeView.vue'
 
 Vue.use(VueRouter)
 
@@ -8,14 +7,6 @@ const routes = [
   {
     path: '/',
     redirect: '/view/x6FlowChart'
-  },
-  {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
   },
   {
     path: '/ag-demo',
@@ -29,10 +20,25 @@ const routes = [
     path: '/view/x6FlowChart',
     name: 'x6FlowChart',
     component: () => import('../views/x6FlowChart/index.vue')
-  }
+  },
+  {
+    path: '/view/routerTest',
+    name: 'routerTest',
+    component: () => import('../views/router-test/index.vue'),
+    children: [
+      { path: 'demo1', name: 'demo1', component: () => import('../components/router-demo/demo1.vue') },
+      { path: 'demo2', name: 'demo2', component: () => import('../components/router-demo/demo2.vue') },
+    ]
+  },
+  // {
+  //   path: '/view/piniaTest',
+  //   name: 'piniaTest',
+  //   component: () => import('../components/pinia-test/index.vue'),
+  // }
 ]
 
 const router = new VueRouter({
+  linkActiveClass: 'active',
   mode: 'history',
   base: process.env.BASE_URL,
   routes

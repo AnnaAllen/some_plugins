@@ -12,37 +12,13 @@ export default {
     return {
       value: null,
       style: null,
-      contextMenuData: {
-        menuName: "demo",
-        axis: {
-          x: null,
-          y: null
-        },
-        menulists: [
-          {
-            btnName: "选项1",
-            icoName: "fa fa-home fa-fw",
-            children: [
-              {
-                icoName: "fa fa-adn",
-                btnName: "选项1-1",
-                fnHandler: "Handler1"
-              }
-            ]
-          },
-          {
-            btnName: "选项4",
-            disabled: true
-          }
-        ]
-      },
-      contextMenuTarget: ''
     }
   },
   mounted() {
-    this.value = this.valueSquared();
+    this.value = this.valueSquared()
     this.style = this.calcHeight()
     console.log(this.params.value)
+    this.invokeParentMethod()
   },
   methods: {
     valueSquared() {
@@ -61,8 +37,8 @@ export default {
       }
     },
     invokeParentMethod() {
-      console.log(this.params);
-      this.params.context.componentParent.methodFromParent(this.params.value)
+      console.log('this.params.context',this.params.context);
+      // this.params.context.componentParent.methodFromParent(this.params.value)
     },
     onContextmenu(event) {
       this.$contextmenu({

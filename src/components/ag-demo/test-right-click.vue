@@ -1,114 +1,69 @@
 <template>
-  <div style="position: fixed;left:0px;top:0;">
-    <div
-      @contextmenu="showMenu(index)"
-      style="width: 100px;height: 100px;margin-top: 20px;background: red;"
-      v-for="(n, index) in 4"
-      :key="n"
-    >
-      <vue-context-menu
-        :contextMenuData="contextMenuData"
-        :transferIndex="transferIndex"
-        @Handler1="Handler_A(index)"
-        @Handler2="Handler_B(index)"
-        @Handler3="Handler_C(index)"
-        @Handler4="Handler_D(index)"
-        @Handler5="Handler_E(index)"
-      ></vue-context-menu>
-    </div>
+  <div @contextmenu.prevent="onContextmenu()">
+    1111
   </div>
 </template>
+
 <script>
+// import contextmenu from '../right-click/vue-contextmenujs/index'
 export default {
-  name: "app",
   data() {
     return {
-      transferIndex: null, // Show the menu that was clicked
-      contextMenuData: {
-        menuName: "demo",
-        axis: {
-          x: null,
-          y: null
-        },
-        menulists: [
-          {
-            btnName: "选项1",
-            icoName: "fa fa-home fa-fw",
-            children: [
-              {
-                icoName: "fa fa-adn",
-                btnName: "选项1-1",
-		// submenu (子菜单)
-                children: [
-                  {
-                    icoName: "fa fa-file",
-		    // submenu (子菜单)
-		    btnName: "选项1-1-1",
-                    children: [
-                      {
-                        icoName: "fa fa-android",
-                        fnHandler: "Handler1",
-                        btnName: "选项1-1-1"
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            btnName: "选项2",
-            children: [
-              {
-                fnHandler: "Handler5", // 绑定的事件
-                btnName: "选项2-1"
-              }
-            ]
-          },
-          {
-            btnName: "选项3",
-            fnHandler: "Handler4"
-          },
-          {
-            btnName: "选项4",
-            disabled: true
-          }
-        ]
-      }
-    };
+
+    }
   },
   methods: {
-    showMenu(index) {
-      this.transferIndex = index; // tranfer index to child component
-      event.preventDefault();
-      var x = event.clientX;
-      var y = event.clientY;
-      this.contextMenuData.axis = {
-        x,
-        y
-      };
-    },
-    Handler_A (index) {
-      console.log('index:', index, '选项1-1-1绑定事件执行');
-    },
-    Handler_B (index) {
-      console.log('index:', index, '选项1-1-2绑定事件执行');
-    },
-    Handler_C (index) {
-      console.log('index:', index, '选项1-2-1绑定事件执行');
-    },
-    Handler_D (index) {
-      console.log('index:', index, '选项1-2-2绑定事件执行');
-    },
-    Handler_E (index) {
-      console.log('index:', index, '选项2-1绑定事件执行');
+    onContextmenu(event) {
+      this.$contextmenu({
+        items: [
+          {
+            label: "返回(B)",
+            onClick: () => {
+              this.message = "返回(B)";
+              console.log("返回(B)");
+            }
+          },
+          { label: "前进(F)", disabled: true },
+          { label: "重新加载(R)", divided: true, icon: "el-icon-refresh" },
+          { label: "另存为(A)..." },
+          { label: "打印(P)...", icon: "el-icon-printer" },
+          { label: "投射(C)...", divided: true },
+          {
+            label: "使用网页翻译(T)",
+            divided: true,
+            minWidth: 0,
+            children: [{ label: "翻译成简体中文" }, { label: "翻译成繁体中文" }]
+          },
+          {
+            label: "截取网页(R)",
+            minWidth: 0,
+            children: [
+              {
+                label: "截取可视化区域",
+                onClick: () => {
+                  this.message = "截取可视化区域";
+                  console.log("截取可视化区域");
+                }
+              },
+              { label: "截取全屏" }
+            ]
+          },
+          { label: "查看网页源代码(V)", icon: "el-icon-view" },
+          { label: "检查(N)" }
+        ],
+        event,
+        //x: event.clientX,
+        //y: event.clientY,
+        customClass: "class-a",
+        zIndex: 3,
+        minWidth: 230
+      });
+      return false;
     }
   }
-};
-</script>
-<style>
-* {
-  margin: 0;
-  padding: 0;
 }
+</script>
+
+<style>
+
 </style>

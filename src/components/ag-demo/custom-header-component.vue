@@ -1,6 +1,12 @@
 <template>
-  <div :class="params.columnGroup.groupId === 'special'?'group-hearder-special':'group-hearder'" @contextmenu.prevent="onContextmenu">
-    {{displayName}}
+  <div 
+  class="header-style-test" 
+  :class="params.columnGroup.groupId === 'special'?'group-hearder-special':'group-hearder'" 
+  @contextmenu.prevent="onContextmenu"
+  >
+    <div ref='headerGroup'>
+      {{displayName}}
+    </div>
   </div>
 </template>
 
@@ -13,11 +19,21 @@ export default {
   },
   mounted() {
     this.displayName = this.getDisplayName()
+    this.$nextTick(() => {
+      if(this.displayName === '产品类型-总计-二级') {
+        this.$refs.headerGroup.parentNode.parentNode.style.height = '100px'
+      }
+    })
     // console.log(this.params.columnGroup.groupId);
   },
   methods: {
     getDisplayName() {
       return this.params.displayName
+    },
+    specialStyle() {
+      return {
+        height: '100px'
+      }
     },
     onContextmenu(event) {
       this.$contextmenu({
@@ -33,9 +49,13 @@ export default {
               this.retain()
             }
           },
-          { label: "排除"},
-          { label: "自定义计算"},
-          { label: "移除度量"}
+          { label: "自定义计算1"},
+          { label: "自定义计算2"},
+          { label: "自定义计算3"},
+          { label: "自定义计算4"},
+          { label: "自定义计算5"},
+          { label: "自定义计算6"},
+          { label: "自定义计算7"},
         ],
         event,
         //x: event.clientX,
@@ -56,15 +76,24 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
+.header-style-test{
+
+}
 .group-hearder{
   width: 100%;
   height: 100%;
   align-content: center;
-  font-size: 20px;
+  font-size: 16px;
+  border: 1px solid #babfc7;
+  font-weight: normal;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
 }
 .group-hearder-special{
-  font-size: 15px;
+  font-size: 16px;
   font-weight: normal;
   text-align: center;
   width: 100%;
