@@ -1,10 +1,8 @@
 <template>
   <div id="app">
     <nav>
-      <router-link to="/view/x6FlowChart" exact>x6(这里现在没有东西)</router-link> |
+      <router-link to="/view/x6FlowChart" exact>x6</router-link> |
       <router-link to="/ag-demo">ag-grid</router-link> |
-      <router-link to="/view/routerTest">router-test</router-link> |
-      <!-- <router-link to="/view/piniaTest">pinia-test</router-link> | -->
     </nav>
     <router-view/>
   </div>
