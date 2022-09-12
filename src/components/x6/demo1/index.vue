@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { Graph, Shape } from '@antv/x6'
+import { Graph } from '@antv/x6'
 // 节点和边的数据
 const data = {
   // 节点
@@ -159,5 +159,7 @@ export default {
 <style lang="scss" scoped>
 #container {
   // border: 1px solid skyblue;
+  width: 100% !important;
+
 }
 </style>

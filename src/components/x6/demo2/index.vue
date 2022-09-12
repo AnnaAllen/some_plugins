@@ -200,6 +200,6 @@ export default {
 
 <style lang="scss" scoped>
 #container {
-  // border: 1px solid skyblue;
+  width: 100% !important;
 }
 </style>

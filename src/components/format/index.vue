@@ -1,10 +1,11 @@
 <template>
   <div class="format">
+    <div class="nav">
+      <slot name="nav"></slot>
+    </div>
+    
     <div class="describe">
-      <div class="describe-title">描述：</div>
-      <div class="describe-content">
-        <slot name="describe"></slot>
-      </div>
+      <slot name="describe"></slot>
     </div>
 
     <div class="format-content">
@@ -33,12 +34,5 @@ export default {
     }
   }
 
-  &-content {
-    width: 100%;
-    padding: 0 50px;
-    box-sizing: border-box;
-    // height: 500px;
-    // background: pink;
-  }
 }
 </style>
