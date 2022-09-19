@@ -1,5 +1,9 @@
 <template>
   <div>
+    <div class="fun" @click="fun('copy')">复制</div>
+    <div class="fun" @click="fun('paster')">粘贴</div>
+    <div class="fun" @click="fun2('undo')">撤销</div>
+    <div class="fun" @click="fun2('redo')">重做</div>
     <div id="container"></div>
   </div>
 </template>
@@ -10,7 +14,9 @@ import { Graph } from '@antv/x6'
 export default {
   data() {
     return {
-
+      graph: null,
+      cells: [],
+      history: null
     }
   },
   mounted() {
@@ -19,50 +25,6 @@ export default {
   methods: {
     // 方法创建节点
     createdNode(graph) {
-      const rect = graph.addNode({
-        id: 'node3',
-        shape: 'rect', // 指定使用何种图形，默认值为 'rect'
-        
-        x: -250,
-        y: -200,
-        width: 80,
-        height: 40,
-        attrs: {
-          body: {
-            fill: 'skyblue',
-          },
-          label: {
-            text: 'node3',
-            fill: 'white',
-          },
-        },
-        ports: [
-          {
-            id: 'port1',
-            attrs: {
-              circle: {
-                r: 6,
-                magnet: true, // 连接桩在交互时可以连接上
-                stroke: '#31d0c6',
-                strokeWidth: 2,
-                fill: '#fff',
-              },
-            },
-          },
-          {
-            id: 'port2',
-            attrs: {
-              circle: {
-                r: 6,
-                magnet: true,
-                stroke: '#31d0c6',
-                strokeWidth: 2,
-                fill: '#fff',
-              },
-            },
-          }, 
-        ],
-      })
       const ellipse = graph.addNode({
         id: 'node2', // String，节点的唯一标识
         x: -100,      // Number，必选，节点位置的 x 值
@@ -71,13 +33,22 @@ export default {
         height: 40,  // Number，可选，节点大小的 height 值
         label: 'node2', // String，节点标签
         shape: 'ellipse', // 使用 ellipse 渲染
+        // 自定义样式
+        attrs: {
+          body: {
+            stroke: 'pink'
+          },
+        },
         ports: {
           /*
             当连接桩的内容相同时，可以给连接桩设置分组，在分组中指定样式和数量，避免冗余
            */
           groups: {
             group1: { 
-              position: 'top', // 指定连接桩的位置， 默认为left
+              position: 'right', // 指定连接桩的位置， 默认为left
+              label: {
+                position: 'right',  // 标签位置
+              },
               attrs: {
                 circle: {
                   r: 6,
@@ -100,10 +71,10 @@ export default {
                 },
               },
             },
-            {
-              id: 'port2-ellipse',
-              group: 'group1', // 指定分组名称
-            },
+            // {
+            //   id: 'port2-ellipse',
+            //   group: 'group1', // 指定分组名称
+            // },
           ],
         }
       })
@@ -143,42 +114,17 @@ export default {
           ],
         }
       })
-      return {rect, ellipse, circle}
+      return { ellipse, circle }
     },
-    // 方法创建边
-    createdge(graph, { rect, ellipse, circle }) {
-      const edge  = graph.addEdge(
-        {
-          shape: 'edge', // 指定使用何种图形，默认值为 'edge'
-          source: {
-            cell: 'node3',
-            port: 'port2'
-          },
-          target: {
-            cell: 'node2', 
-            port: 'port1-ellipse', // 链接桩 ID
-          },
-        },
-        
-      )
-      const edge2 = graph.addEdge({
-          shape: 'edge',
-          source: {
-            cell: 'node2',
-            port: 'port2-ellipse'
-          },
-          target: { 
-            cell: 'node1', 
-            port: 'port1-circle',
-          },
-        })
-    },
+    
     // 初始化
     init() {
       const graph = new Graph({
         container: document.getElementById('container'),
+        history: true, // 开启撤销重做
         clipboard: {
           enabled: true, // 开启复制
+          useLocalStorage: true // 关闭浏览器重新打开后也能正常复制粘贴
         },
         height: 600,
         background: {
@@ -192,14 +138,84 @@ export default {
       // graph.fromJSON(data) 全局data
       graph.centerContent()
       const node = this.createdNode(graph)
-      this.createdge(graph, node)
+      
+      // 重置节点
+      function reset () {
+        const nodes = graph.getNodes()
+        const edges = graph.getEdges()
+
+        nodes.forEach((node) => {
+          node.attr('body/stroke', '#000')
+        })
+
+        edges.forEach((edge) => {
+          edge.attr('line/stroke', 'black')
+          edge.prop('labels/0', {
+            attrs: {
+              body: {
+                stroke: 'black',
+              },
+            },
+          })
+        })
+      }
+
+      // 点击节点
+      graph.on('node:click', ({ node }) => {this.clickNode(node, reset())})
+
+      this.graph = graph
+      // this.history = graph.HistoryManager
+      console.log(graph.history, 'graph.history-----------');
+    },
+
+    // 点击节点
+    clickNode(node, reset) {
+      reset
+      this.cells = []
+      this.cells.push(node)
+      node.attr('body/stroke', 'orange')
+      console.log(node, 'node------');
+    },
+
+    fun(type) {
+      if(type === 'copy') {
+        if (this.cells && this.cells.length > 0) {
+          this.graph.copy(this.cells)
+          console.log('复制成功');
+        } else {
+          console.log('请先选中节点再复制');
+        }
+        return
+      }
+
+      if (this.graph.isClipboardEmpty()) {
+        console.log('剪切板为空');
+      } else {
+        const cells = this.graph.paste(this.cells)
+        this.graph.cleanSelection()
+        this.graph.select(cells)
+      }
+    },
+
+    fun2(type) {
+      if(type === 'undo') {
+        return
+      }
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
+.fun {
+  display: inline-block;
+  padding: 10px;
+  margin: 0 10px;
+  cursor: pointer;
+  border: 1px solid orange;
+}
 #container {
   width: 100% !important;
+  // border: 1px dashed orange;
 }
 </style>

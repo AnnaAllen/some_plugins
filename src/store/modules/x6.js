@@ -4,7 +4,7 @@ const x6 = {
     x6Des: {
       demo1: '描述：基础的点和线',
       demo2: '',
-      demo3: ''
+      demo3: '复制粘贴，撤销重做'
     }
   },
   getters: {
