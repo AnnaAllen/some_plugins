@@ -271,8 +271,8 @@ export default {
         allColumnIds.push(column.colId);
       });
       params.columnApi.autoSizeColumns(allColumnIds, false);
-
-      // console.log(params, 'this.gridColumnApi.autoSizeColumns---------');
+      console.log(params.columnApi.columnModel.columnsForQuickFilter, 'columnsForQuickFilter------------');
+      console.log(params, 'onFirstDataRendered---------');
     },
     onGridReady(params) {
       this.gridApi = params.api;
