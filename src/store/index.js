@@ -4,6 +4,7 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 import x6 from './modules/x6'
+import editor from './modules/editor'
 
 export default new Vuex.Store({
   state: {
@@ -15,6 +16,7 @@ export default new Vuex.Store({
   actions: {
   },
   modules: {
-    x6
+    x6,
+    editor
   }
 })

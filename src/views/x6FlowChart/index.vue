@@ -22,12 +22,12 @@
 </template>
 
 <script>
-import formatCom from '../../components/format/index.vue' // 规范展示
+import formatCom from '@/components/format/index.vue' // 规范展示
 
-import demo1 from '../../components/x6/demo1/index.vue' // 基础节点和边
-import demo2 from '../../components/x6/demo2/index.vue' // 连接桩
-import demo3 from '../../components/x6/demo3/index.vue' // 复制粘贴
-import demo4 from '../../components/x6/demo4/index.vue' // 复制粘贴
+import demo1 from './x6/demo1/index.vue' // 基础节点和边
+import demo2 from './x6/demo2/index.vue' // 连接桩
+import demo3 from './x6/demo3/index.vue' // 复制粘贴
+import demo4 from './x6/demo4/index.vue' // 复制粘贴
 
 import { mapState } from 'vuex'
 

@@ -5,7 +5,7 @@
   @contextmenu.prevent="onContextmenu"
   class="header-item"
   :class="params.column.colDef.spanning? 'column-header-special' : 'column-hearder'">
-    <div ref='specialCell'>
+    <div ref='specialCell' class="content">
       {{params.displayName}}
     </div>
   </div>
@@ -19,17 +19,8 @@ export default {
   },
   mounted() {
     this.$nextTick(() => {
-      if(this.params.column.colDef.spanning) {
-        // this.$refs.specialCell.parentNode.parentNode.style.width = `${this.params.column.colDef.spanning * 200}px`
-      }
-      // console.log(this.params.column.colDef.spanning);
-      if(!this.params.displayName) {
-        // this.$refs.specialCell.parentNode.parentNode.style.display = 'none'
-        // console.log(this.$refs.specialCell.parentNode.parentNode.style.display,'this.$refs.specialCell');
-        // console.log(this.$refs.specialCell.parentNode.parentNode.display,'this.$refs');
-      }
+     console.log(this.$refs.specialCell.clientWidth, 'this.$refs[]--------------');
     })
-    // console.log(this.params.column.colDef.styleStatus);
   },
   methods: {
     onMenuClicked() {

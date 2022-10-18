@@ -17,17 +17,17 @@
 </template>
 
 <script>
-import agDemo from '../../components/ag-demo/index.vue'
+import agDemo from './ag-demo/index.vue'
 
-import agGridColumn from '../../components/ag-demo/ag-grid-column.vue'
-import testRightClick from '../../components/ag-demo/test-right-click.vue'
-import cellRender from '../../components/ag-demo/cell-render.vue'
-import agGridChange from '../../components/ag-demo-change/index.vue'
-import normalTable from '../../components/ag-demo/normal.vue'
+import agGridColumn from './ag-demo/ag-grid-column.vue'
+import testRightClick from './ag-demo/test-right-click.vue'
+import cellRender from './ag-demo/cell-render.vue'
+import agGridChange from './ag-demo-change/index.vue'
+import normalTable from './ag-demo/normal.vue'
 // 分组
-import group from '../../components/ag-demo/group.vue'
+import group from './ag-demo/group.vue'
 // 列大小
-import reszieable from '../../components/ag-demo/reszieable.vue'
+import reszieable from './ag-demo/reszieable.vue'
 
 export default {
   components: {

@@ -30,6 +30,11 @@ const routes = [
       { path: 'demo2', name: 'demo2', component: () => import('../components/router-demo/demo2.vue') },
     ]
   },
+  {
+    path: '/wang-editor',
+    name: 'wangEditor',
+    component: () => import('../views/wangEditor/index.vue')
+  },
   // {
   //   path: '/view/piniaTest',
   //   name: 'piniaTest',

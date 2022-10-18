@@ -3,6 +3,7 @@
     <nav>
       <router-link to="/view/x6FlowChart" exact>x6</router-link> |
       <router-link to="/ag-demo">ag-grid</router-link> |
+      <router-link to="/wang-editor">wang-editor</router-link> |
     </nav>
     <router-view/>
   </div>

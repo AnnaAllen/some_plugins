@@ -103,6 +103,8 @@ export default {
     init() {
       const graph = new Graph({
         selecting: true,
+        multiple: true,
+        multipleSelectionModifiers: 'ctrl',
         container: document.getElementById('container'),
         height: 600,
         background: {
@@ -118,40 +120,40 @@ export default {
       const node = this.createdNode(graph)
       
       // 重置节点
-      function reset () {
-        const nodes = graph.getNodes()
-        const edges = graph.getEdges()
+      // function reset () {
+      //   const nodes = graph.getNodes()
+      //   const edges = graph.getEdges()
 
-        nodes.forEach((node) => {
-          node.attr('body/stroke', '#000')
-        })
+      //   nodes.forEach((node) => {
+      //     node.attr('body/stroke', '#000')
+      //   })
 
-        edges.forEach((edge) => {
-          edge.attr('line/stroke', 'black')
-          edge.prop('labels/0', {
-            attrs: {
-              body: {
-                stroke: 'black',
-              },
-            },
-          })
-        })
-      }
+      //   edges.forEach((edge) => {
+      //     edge.attr('line/stroke', 'black')
+      //     edge.prop('labels/0', {
+      //       attrs: {
+      //         body: {
+      //           stroke: 'black',
+      //         },
+      //       },
+      //     })
+      //   })
+      // }
 
       // 点击节点
-      graph.on('node:click', ({ node }) => {this.clickNode(node, reset())})
+      // graph.on('node:click', ({ node }) => {this.clickNode(node, reset())})
 
       this.graph = graph
     },
 
     // 点击节点
-    clickNode(node, reset) {
-      reset
-      this.cells = []
-      this.cells.push(node)
-      node.attr('body/stroke', 'orange')
-      console.log(node, 'node------');
-    },
+    // clickNode(node, reset) {
+    //   reset
+    //   this.cells = []
+    //   this.cells.push(node)
+    //   node.attr('body/stroke', 'orange')
+    //   console.log(node, 'node------');
+    // },
 
   }
 }

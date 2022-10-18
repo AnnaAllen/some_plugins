@@ -1,6 +1,7 @@
 <template>
   <div>
     <ag-grid-vue
+      v-show="aaa"
       style="height: 400px;"
       class="ag-theme-alpine"
       :columnDefs="columnDefs"
@@ -26,6 +27,7 @@ export default {
   },
   data() {
     return {
+      aaa: true,
       columnDefs: null,
       rowData: null,
       gridApi: null,
@@ -266,11 +268,13 @@ export default {
     // 自动将列扩到能看见表头全部字体
     // 网格在创建时并未附加到 DOM（因此api.sizeColumnsToFit()应该会失败）。网格在 100 毫秒后再次检查，并再次尝试调整大小。
     onFirstDataRendered(params) {
+      this.aaa = false
       const allColumnIds = [];
       params.columnApi.columnModel.columnsForQuickFilter.forEach((column) => {
         allColumnIds.push(column.colId);
       });
       params.columnApi.autoSizeColumns(allColumnIds, false);
+      this.aaa = true
       console.log(params.columnApi.columnModel.columnsForQuickFilter, 'columnsForQuickFilter------------');
       console.log(params, 'onFirstDataRendered---------');
     },
