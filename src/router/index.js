@@ -6,7 +6,7 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    redirect: '/view/x6FlowChart'
+    redirect: '/view/x6-flow-chart'
   },
   {
     path: '/ag-demo',
@@ -17,29 +17,25 @@ const routes = [
     component: () => import('../views/ag-grid-demo/index.vue')
   },
   {
-    path: '/view/x6FlowChart',
+    path: '/view/x6-flow-chart',
     name: 'x6FlowChart',
     component: () => import('../views/x6FlowChart/index.vue')
   },
   {
-    path: '/view/routerTest',
+    path: '/view/router-test',
     name: 'routerTest',
     component: () => import('../views/router-test/index.vue'),
-    children: [
-      { path: 'demo1', name: 'demo1', component: () => import('../components/router-demo/demo1.vue') },
-      { path: 'demo2', name: 'demo2', component: () => import('../components/router-demo/demo2.vue') },
-    ]
   },
   {
     path: '/wang-editor',
     name: 'wangEditor',
     component: () => import('../views/wangEditor/index.vue')
   },
-  // {
-  //   path: '/view/piniaTest',
-  //   name: 'piniaTest',
-  //   component: () => import('../components/pinia-test/index.vue'),
-  // }
+  {
+    path: '/about-ele',
+    name: 'aboutEle',
+    component: () => import('../views/about-ele/index.vue')
+  },
 ]
 
 const router = new VueRouter({
