@@ -5,6 +5,7 @@
       <router-link to="/ag-demo">ag-grid</router-link> |
       <router-link to="/wang-editor">wang-editor</router-link> |
       <router-link to="/about-ele">element相关</router-link> |
+      <router-link to="/baidu-map">baidu 地图</router-link> | 
     </nav>
     <router-view/>
   </div>

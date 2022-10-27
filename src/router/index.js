@@ -36,6 +36,11 @@ const routes = [
     name: 'aboutEle',
     component: () => import('../views/about-ele/index.vue')
   },
+  {
+    path: '/baidu-map',
+    name: 'baiduMap',
+    component: () => import('../views/baidu-map/index.vue')
+  },
 ]
 
 const router = new VueRouter({
