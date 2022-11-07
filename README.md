@@ -23,9 +23,9 @@ npm run lint
 + x6
 + ag-grid
 + wang-editor
++ 百度地图api
 
 ### 练习的模块
-+ 百度地图开发
 + web支付开发
 + 扫码登录
 

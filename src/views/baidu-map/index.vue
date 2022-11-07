@@ -1,8 +1,29 @@
 <template>
 <!-- 
-  center: 经纬度
-  zoom： 缩放等级
-  scroll-wheel-zoom：是否滚轮缩放
+  ## 通用
+    ----------属性----------
+    + center: 经纬度
+    + zoom： 缩放等级
+    + scroll-wheel-zoom：是否滚轮缩放
+    + strokeColor：折线颜色
+    + strokeWeight： 折线的宽度，以像素为单位
+    + strokeOpacity： 折线的透明度，取值范围0 - 1
+    + strokeStyle： 折线的样式，solid或dashed
+    + fillColor： 填充颜色。当参数为空时，折线覆盖物将没有填充效果
+    + fillOpacity： 填充的透明度，取值范围0 - 1
+    + massClear： 是否在调用map.clearOverlays清除此覆盖物
+    + editing： 是否启用线编辑
+    + clicking： 是否响应点击事件
+    ----------事件----------
+    + @click = click(currentTarget, point, returnValue, target, type) : 点击坐标点后会触发此事件
+    + @dblclick = dblclick(type, target, point, pixel) : 双击折线后会触发此事件
+    + @mousedown = mousedown(type, target, point, pixel) : 鼠标在折线上按下触发此事件
+    + @mouseup = mouseup(type, target, point, pixel) : 鼠标在折线释放触发此事件
+    + @mouseout = mouseout(type, target, point, pixel) : 鼠标离开折线时触发此事件
+    + @mouseover = mouseover(type, target, point, pixel) : 当鼠标进入折线区域时会触发此事件
+    + @remove = remove(type, target) : 	移除时触发
+    + @lineupdate = lineupdate(type, target) : 覆盖物的属性发生变化时触发
+
  -->
   <baidu-map class="map" :center="{lng: 116.404, lat: 39.915}" :zoom="zoom" :scroll-wheel-zoom="true">
 
@@ -67,7 +88,6 @@
         + icon: 标注所用的图标对象 :icon="{url: '', size: {width: 300, height: 157}}"
         + position： 标注的位置
         + dragging： 是否启用拖动
-        + clicking： 	是否响应点击事件
         + raiseOnDrag： 拖拽标注时，标注是否开启离开地图表面效果
         + draggingCursor: 拖拽标注时的鼠标指针样式。此属性值需遵循CSS的cursor属性规范
         + rotation: 旋转角度
@@ -89,34 +109,40 @@
         + shape: 坐标点形状
         + size: 坐标点尺寸
         + color: 坐标点颜色
-        + @click = click(currentTarget, point, returnValue, target, type) : 点击坐标点后会触发此事件
-        + @mouseout = mouseout(currentTarget, point, returnValue, target, type) : 鼠标离开坐标点时触发此事件
-        + @mouseover = mouseover(currentTarget, point, returnValue, target, type) : 当鼠标进入坐标点区域时会触发此事件
      -->
     <bm-point-collection :points="points" shape="BMAP_POINT_SHAPE_STAR" color="red" size="BMAP_POINT_SIZE_SMALL" @click="clickHandler"></bm-point-collection>
 
     <!-- 
       ## 折线
         + path: 构成折线的点
-        + strokeColor: 折线颜色
-        + strokeWeight: 折线的宽度，以像素为单位
-        + strokeOpacity: 折线的透明度，取值范围0 - 1
-        + strokeStyle: 折线的样式，solid或dashed
-        + massClear: 是否在调用map.clearOverlays时清除此覆盖物
-        + editing：是否启用线编辑、
-        + clicking：是否响应点击事件
         + icons：贴合折线的图标
-        --------------------------------
-        + @click = click(type, target, point, pixel) : 点击折线后会触发此事件
-        + @dblclick = dblclick(type, target, point, pixel) : 双击折线后会触发此事件
-        + @mousedown = mousedown(type, target, point, pixel) : 鼠标在折线上按下触发此事件
-        + @mouseup = mouseup(type, target, point, pixel) : 鼠标在折线释放触发此事件
-        + @mouseout = mouseout(type, target, point, pixel) : 鼠标离开折线时触发此事件
-        + @mouseover = mouseover(type, target, point, pixel) : 当鼠标进入折线区域时会触发此事件
-        + @remove = remove(type, target) : 	移除折线时触发
-        + @lineupdate = lineupdate(type, target) : 覆盖物的属性发生变化时触发
      -->
     <bm-polyline :path="polylinePath" stroke-color="red" :stroke-opacity="0.5" :stroke-weight="2" :editing="true" @lineupdate="updatePolylinePath"></bm-polyline>
+    <!-- 
+      ## 多边形
+        + path： 构成折线的点
+     -->
+    <bm-polygon :path="polygonPath" stroke-color="blue" :stroke-opacity="0.5" :stroke-weight="2" :editing="true" @lineupdate="updatePolygonPath"/>
+    
+    <!--  
+      ## 圆形
+        + center: 圆心，是圆形中心点坐标
+        + radius: 半径，单位为米
+    -->
+    <bm-circle :center="circlePath.center" :radius="circlePath.radius" stroke-color="blue" :stroke-opacity="0.5" :stroke-weight="2" @lineupdate="updateCirclePath" :editing="true"></bm-circle>
+    
+    <!-- 
+      ## 地面
+        + bounds: 地面覆盖区域
+        + opacity: 图层透明度
+        + imageURL: 图层地址
+        + displayOnMinLevel: 图层显示的最小级别
+        + displayOnMaxLevel: 图层显示的最大级别
+     -->
+    <!-- <bm-ground
+      :bounds="{ne: {lng: 110, lat: 40}, sw:{lng: 0, lat: 0}}" imageURL="http://dafrok.github.io/vue-baidu-map/favicon.png">
+    </bm-ground> -->
+    
     <!-- 视图容器 比例尺通过视图容器的anchor属性设置 -->
     <bm-scale anchor="BMAP_ANCHOR_TOP_RIGHT"></bm-scale>
   </baidu-map>
@@ -133,7 +159,19 @@ export default {
       {lng: 116.404, lat: 39.915},
       {lng: 116.405, lat: 39.920},
       {lng: 116.423493, lat: 39.907445}
-    ]
+    ],
+    polygonPath: [
+      {lng: 116.412732, lat: 39.911707},
+      {lng: 116.39455, lat: 39.910932},
+      {lng: 116.403461, lat: 39.921336}
+    ],
+    circlePath: {
+      center: {
+        lng: 116.404,
+        lat: 39.915
+      },
+      radius: 500
+    }
   }
  },
  mounted() {
@@ -165,6 +203,13 @@ export default {
   },
   addPolylinePoint () {
     this.polylinePath.push({lng: 116.404, lat: 39.915})
+  },
+  updatePolygonPath (e) {
+    this.polygonPath = e.target.getPath()
+  },
+  updateCirclePath (e) {
+    this.circlePath.center = e.target.getCenter()
+    this.circlePath.radius = e.target.getRadius()
   }
  }
 }
