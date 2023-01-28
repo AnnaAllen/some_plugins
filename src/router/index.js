@@ -41,6 +41,18 @@ const routes = [
     name: 'baiduMap',
     component: () => import('../views/baidu-map/index.vue')
   },
+  {
+    path: '/some-style-tip',
+    // name: 'someStyleTip',
+    component: () => import('../views/some-style-tip/index.vue'),
+    children: [
+      {
+        path: '/backdrop-filter',
+        name: 'backdropFilter',
+        component: () => import('../views/some-style-tip/item/backdrop-filter.vue')
+      }
+    ]
+  },
 ]
 
 const router = new VueRouter({

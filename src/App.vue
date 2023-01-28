@@ -6,6 +6,7 @@
       <router-link to="/wang-editor">wang-editor</router-link> |
       <router-link to="/about-ele">element相关</router-link> |
       <router-link to="/baidu-map">baidu 地图</router-link> | 
+      <router-link to="/some-style-tip">some-style-tip</router-link> | 
     </nav>
     <router-view/>
   </div>
