@@ -50,6 +50,16 @@ const routes = [
         path: '/backdrop-filter',
         name: 'backdropFilter',
         component: () => import('../views/some-style-tip/item/backdrop-filter.vue')
+      },
+      {
+        path: '/dom-event',
+        name: 'domEvent',
+        component: () => import('../views/some-style-tip/item/dom-event.vue')
+      },
+      {
+        path: '/picture-compression',
+        name: 'pictureCompression',
+        component: () => import('../views/some-style-tip/item/picture-compression.vue')
       }
     ]
   },
