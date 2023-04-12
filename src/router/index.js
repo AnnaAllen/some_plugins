@@ -22,6 +22,16 @@ const routes = [
     component: () => import('../views/x6FlowChart/index.vue')
   },
   {
+    path: '/view/g2',
+    name: 'G2',
+    component: () => import('../views/g2/index.vue')
+  },
+  {
+    path: '/view/check-box',
+    name: 'check-box',
+    component: () => import('../views/check-box/index.vue')
+  },
+  {
     path: '/view/router-test',
     name: 'routerTest',
     component: () => import('../views/router-test/index.vue'),

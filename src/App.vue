@@ -7,6 +7,8 @@
       <router-link to="/about-ele">element相关</router-link> |
       <router-link to="/baidu-map">baidu 地图</router-link> | 
       <router-link to="/some-style-tip">some-style-tip</router-link> | 
+      <router-link to="/view/check-box">check-box</router-link> | 
+      <router-link to="/view/g2">G2</router-link> | 
     </nav>
     <router-view/>
   </div>
