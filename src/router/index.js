@@ -70,6 +70,11 @@ const routes = [
         path: '/picture-compression',
         name: 'pictureCompression',
         component: () => import('../views/some-style-tip/item/picture-compression.vue')
+      },
+      {
+        path: '/data-xxx',
+        name: 'data-xxx',
+        component: () => import('../views/some-style-tip/item/data-xxx.vue')
       }
     ]
   },

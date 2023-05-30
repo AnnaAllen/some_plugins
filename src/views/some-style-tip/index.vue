@@ -5,13 +5,13 @@
     </div>
     <router-view></router-view>
 
-    <el-input
+    <!-- <el-input
       type="textarea"
       placeholder="请输入内容"
       v-model="textarea"
       @blur="inputBlur"
     >
-    </el-input>
+    </el-input> -->
 
   </div>
 </template>
@@ -35,6 +35,10 @@ export default {
           name: '图片压缩',
           routerName: 'pictureCompression'
         },
+        {
+          name: 'h5的数据属性',
+          routerName: 'data-xxx'
+        }
       ]
     }
   },
