@@ -75,6 +75,11 @@ const routes = [
         path: '/data-xxx',
         name: 'data-xxx',
         component: () => import('../views/some-style-tip/item/data-xxx.vue')
+      },
+      {
+        path: '/theme-change',
+        name: 'theme-change',
+        component: () => import('../views/some-style-tip/item/theme-change.vue')
       }
     ]
   },

@@ -38,6 +38,10 @@ export default {
         {
           name: 'h5的数据属性',
           routerName: 'data-xxx'
+        },
+        {
+          name: '主题切换',
+          routerName: 'theme-change'
         }
       ]
     }

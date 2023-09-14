@@ -14,7 +14,25 @@
   </div>
 </template>
 
+<script>
+export default {
+  // 动态引入主题样式文件
+  mounted() {
+    setTimeout(() => {
+      // 修改全局变量
+      // document.getElementsByTagName('body')[0].style.setProperty('--color-primary', 'red');
+    }, 3000);
+  },
+}
+
+</script>
+
 <style lang="scss">
+@import '@/assets/style/test2/theme.scss';
+.text-color {
+  color: var(--color-primary);
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

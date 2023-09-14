@@ -1,0 +1,9 @@
+:root {
+  --bg-primary: pink;
+  --color-primary: #0085f0;
+}
+
+:root[theme='dark'] {
+  --bg-primary: black;
+  --color-primary: white;
+}
